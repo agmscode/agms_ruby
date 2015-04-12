@@ -32,7 +32,7 @@ Support for Invoicing and Recurring are not yet completed.
 ## Documentation
 
 * [Official documentation](https://www.onlinepaymentprocessing.com/docs/ruby)
-* [Bug Tracker](http://github.com/agms/agms_ruby/issues)
+* [Bug Tracker](http://github.com/agmscode/agms_ruby/issues)
 
 Examples can be found as part of this package in example /hpp.rb, example/invoicing.rb, example/recurring.rb, example_report.py, example/safe.rb, example/transaction.rb.
 
