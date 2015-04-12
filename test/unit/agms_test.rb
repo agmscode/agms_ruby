@@ -12,10 +12,5 @@ class AgmsTest < Test::Unit::TestCase
     assert_equal '3', Agms::Agms.getAPIVersion, 'Agms Library Version Successful'
   end
 
-  def test_whatCardType
-    card_trunc = '345'
-    assert_equal 'American Express', Agms::Agms.whatCardType(card_trunc), 'What Card Type Successful'
-    assert_equal 'AX', Agms::Agms.whatCardType(card_trunc, 'abbreviation'), 'What Card Type Successful'
-  end
 end
 
