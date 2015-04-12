@@ -1,6 +1,6 @@
 require File.expand_path("../../test_helper", __FILE__)
 
-class ReportTest < Test::Unit::TestCase
+class HPPTest < Test::Unit::TestCase
   def setup
     config = YAML::load(File.open(File.expand_path("../../fixtures.yml", __FILE__)))['agms']
     Agms::Configuration.configure(

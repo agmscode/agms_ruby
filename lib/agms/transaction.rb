@@ -1,5 +1,5 @@
 module Agms
-	class Transaction < Agms
+  class Transaction < Agms
 		# A class representing AGMS Transaction objects.
 		
 		alias AgmsResetParameters resetParameters
@@ -13,7 +13,6 @@ module Agms
       @responseObject = 'TransactionResponse'
 		end
 
-    # @return [Object]
     def process(params)
       @op = 'ProcessTransaction'
       AgmsResetParameters()
@@ -25,13 +24,13 @@ module Agms
 		end
 
 		protected
-			def execute
-				if @op == 'ProcessTransaction'
-					AgmsDoConnect('ProcessTransaction', @responseObject)
-				else
-					raise InvalidRequestError, "Invalid request to Transaction API #{@op}"
-				end
-			end
+    def execute
+      if @op == 'ProcessTransaction'
+        AgmsDoConnect('ProcessTransaction', @responseObject)
+      else
+        raise InvalidRequestError, "Invalid request to Transaction API #{@op}"
+      end
+    end
 
 	end
 end
