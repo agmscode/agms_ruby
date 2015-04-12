@@ -107,16 +107,16 @@ module Agms
       end
 
       # All sales and auths require an amount
-      if (   @fields[:TransactionType][:value] == 'sale'  or
-          @fields[:TransactionType][:value] == 'auth'    )
+      if (@fields[:TransactionType][:value] == 'sale' or
+          @fields[:TransactionType][:value] == 'auth')
         @required.push(:Amount)
       end
 
       # Captures, refunds, voids, updates, adjustments need a Transaction ID
-      if (   @fields[:TransactionType][:value] == 'capture' or
+      if (@fields[:TransactionType][:value] == 'capture' or
           @fields[:TransactionType][:value] == 'refund' or
           @fields[:TransactionType][:value] == 'void' or
-          @fields[:TransactionType][:value] == 'adjustment'  )
+          @fields[:TransactionType][:value] == 'adjustment')
         @required.push(:TransactionID)
       end
 
@@ -126,8 +126,8 @@ module Agms
       end
 
       # All safe updates and deletes require a safe id
-      if (   @fields[:SAFE_Action][:value] == 'update' or
-          @fields[:SAFE_Action][:value] == 'delete'  )
+      if (@fields[:SAFE_Action][:value] == 'update' or
+          @fields[:SAFE_Action][:value] == 'delete')
         @required.push(:SAFE_ID)
       end
 
@@ -139,17 +139,17 @@ module Agms
           @required.push(:CheckName)
           @required.push(:CheckABA)
           @required.push(:CheckAccount)
-          if (   @fields[:TransactionType][:value] == 'sale' or
-              @fields[:TransactionType][:value] == 'auth'    )
+          if (@fields[:TransactionType][:value] == 'sale' or
+              @fields[:TransactionType][:value] == 'auth')
             @required.push(:SecCode)
           end
         end
       else
         # Credit card transaction
         # If no SAFE ID and its a sale or auth
-        if (  @fields[:SAFE_ID][:value] == '' and
-            ( @fields[:TransactionType][:value] == 'sale' or
-                @fields[:TransactionType][:value] == 'auth' )  )
+        if (@fields[:SAFE_ID][:value] == '' and
+            (@fields[:TransactionType][:value] == 'sale' or
+                @fields[:TransactionType][:value] == 'auth'))
           # If no Safe ID we need the card info
           # If no MagData then we need keyed info
           if @fields[:MagData][:value] == ''
@@ -167,23 +167,23 @@ module Agms
       messages = error_array['messages'];
 
       # ExpDate MMYY
-      if (    @fields[:CCExpDate][:value] != '' and
-          ( @fields[:CCExpDate][:value].length != 4 or
-              not /(0[1-9]|1[0-2])([0-9][0-9])/.match(@fields[:CCExpDate][:value]) )  )
+      if (@fields[:CCExpDate][:value] != '' and
+          (@fields[:CCExpDate][:value].length != 4 or
+              not /(0[1-9]|1[0-2])([0-9][0-9])/.match(@fields[:CCExpDate][:value])))
         errors += 1
         messages.push('CCExpDate (credit card expiration date) must be MMYY.')
       end
 
       # CCNumber length
-      if ( @fields[:CCNumber][:value] != ''  and
+      if (@fields[:CCNumber][:value] != '' and
           @fields[:CCNumber][:value].length != 16 and
-          @fields[:CCNumber][:value].length != 15 )
+          @fields[:CCNumber][:value].length != 15)
         errors += 1
         messages.push('CCNumber (credit card number) must be 15-16 digits long.')
       end
 
       # ABA length
-      if  ( @fields[:CheckABA][:value] != '' and
+      if (@fields[:CheckABA][:value] != '' and
           @fields[:CheckABA][:value].length != 9)
         errors += 1
         messages.push('CheckABA (routing number) must be 9 digits long.')

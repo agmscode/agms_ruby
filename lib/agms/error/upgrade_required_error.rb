@@ -1,5 +1,5 @@
 module Agms
-	class UpgradeRequiredError < AgmsError
+  class UpgradeRequiredError < AgmsError
     def initialize(message, object)
       super(message, object)
     end

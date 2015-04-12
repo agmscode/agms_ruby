@@ -87,7 +87,7 @@ class SAFETest < Test::Unit::TestCase
     response = @safe.add(params)
     assert_equal '1', response['response_code'], 'Auth Transaction Successful'
     assert_equal 'SAFE Record added successfully. No transaction processed.', response['response_message'], response['response_message']
-    safe_id = response['safe_id']
+
     Agms::Connect.any_instance.stubs(:post).returns(failed_SAFEUpdate_response)
     params = {
         :payment_type => { :value => 'creditcard'},
@@ -99,7 +99,7 @@ class SAFETest < Test::Unit::TestCase
         :safe_id => { :value => '123'}
     }
     begin
-      response = @safe.update(params)
+      @safe.update(params)
     rescue => err
       assert_equal '3', err.object['response_code'], 'Verify Transaction Failed'
       assert_equal 'SAFE Record failed to update successfully.  No transaction processed. ', err.object['response_message'], err.object['response_message']

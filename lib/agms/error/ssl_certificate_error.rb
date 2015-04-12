@@ -1,5 +1,5 @@
 module Agms
-	class SSLCertificateError < AgmsError
+  class SSLCertificateError < AgmsError
     def initialize(message, object)
       super(message, object)
     end

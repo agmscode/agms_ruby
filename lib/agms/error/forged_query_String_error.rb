@@ -1,5 +1,5 @@
 module Agms
-	class ForgedQueryStringError < AgmsError
+  class ForgedQueryStringError < AgmsError
     def initialize(message, object)
       super(message, object)
     end

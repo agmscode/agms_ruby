@@ -1,8 +1,8 @@
 module Agms
-	class InvoicingRequest < Request
+  class InvoicingRequest < Request
 
     def initialize(op)
       super(op)
     end
-	end
+  end
 end

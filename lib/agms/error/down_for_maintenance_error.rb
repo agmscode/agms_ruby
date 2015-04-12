@@ -1,5 +1,5 @@
 module Agms
-	class DownForMaintenanceError < AgmsError
+  class DownForMaintenanceError < AgmsError
     def initialize(message, object)
       super(message, object)
     end

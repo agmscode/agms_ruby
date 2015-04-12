@@ -106,10 +106,10 @@ module Agms
       @required = Array.new
 
       # All sales and auth require an amount unless donation
-      if ( ( @fields[:Donation][:value] != '' or
-            @fields[:Donation][:value] != false ) and
+      if ((@fields[:Donation][:value] != '' or
+          @fields[:Donation][:value] != false) and
           (@fields[:TransactionType][:value] == 'sale' or
-            @fields[:TransactionType][:value] == 'auth') )
+              @fields[:TransactionType][:value] == 'auth'))
         @required.push(:Amount)
       end
 
@@ -119,25 +119,25 @@ module Agms
       messages = error_array['messages'];
 
       # ExpDate MMYY
-      if (  @fields.has_key?(:CCExpDate) and
+      if (@fields.has_key?(:CCExpDate) and
           @fields[:CCExpDate][:value] != '' and
-          ( @fields[:CCExpDate][:value].length != 4 or
-              not /(0[1-9]|1[0-2])([0-9][0-9])/.match(@fields[:CCExpDate][:value]) )  )
+          (@fields[:CCExpDate][:value].length != 4 or
+              not /(0[1-9]|1[0-2])([0-9][0-9])/.match(@fields[:CCExpDate][:value])))
         errors += 1
         messages.push('CCExpDate (credit card expiration date) must be MMYY.')
       end
 
       # CCNumber length
-      if (  @fields.has_key?(:CCNumber) and
-          @fields[:CCNumber][:value] != ''  and
+      if (@fields.has_key?(:CCNumber) and
+          @fields[:CCNumber][:value] != '' and
           @fields[:CCNumber][:value].length != 16 and
-          @fields[:CCNumber][:value].length != 15 )
+          @fields[:CCNumber][:value].length != 15)
         errors += 1
         messages.push('CCNumber (credit card number) must be 15-16 digits long.')
       end
 
       # ABA length
-      if  ( @fields.has_key?(:CheckABA) and
+      if (@fields.has_key?(:CheckABA) and
           @fields[:CheckABA][:value] != '' and
           @fields[:CheckABA][:value].length != 9)
         errors += 1
@@ -156,7 +156,7 @@ module Agms
     end
 
     def getFields
-      fields =  getFieldArray
+      fields = getFieldArray
       if fields.has_key?(:AutoSAFE)
         if fields[:AutoSAFE] == true
           fields[:AutoSAFE] = 1

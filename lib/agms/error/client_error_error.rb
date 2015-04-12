@@ -1,5 +1,5 @@
 module Agms
-	class ClientErrorError < AgmsError
+  class ClientErrorError < AgmsError
     def initialize(message, object)
       super(message, object)
     end

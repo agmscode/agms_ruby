@@ -1,12 +1,12 @@
 module Agms
-	class TransactionRequest < Request
-		# A class representing AGMS Transaction Request objects.
+  class TransactionRequest < Request
+    # A class representing AGMS Transaction Request objects.
 
     alias AgmsAutoValidate autoValidate
 
     def initialize(op)
-			super(op)
-			@fields = {
+      super(op)
+      @fields = {
           :TransactionType => {:setting => '', :value => ''},
           :PaymentType => {:setting => '', :value => 'creditcard'},
           :Amount => {:setting => '', :value => ''}, # Required for sale or auth
@@ -79,14 +79,14 @@ module Agms
       @numeric = %w(Amount Tax Shipping ProcessorID TransactionID CheckABA CheckAccount CCNumber CCExpDate)
 
       @enums = {
-        :TransactionType => %w(sale auth safe\ only capture void refund update adjustment),
-        :SAFE_Action => %w(add_safe update_safe delete_safe),
-        :PaymentType => %w(creditcard check),
-        :SecCode => %w(PPD WEB TEL CCD),
-        :AccountHolderType => %w(business personal),
-        :AccountType => %w(checking savings),
-        :MagHardware => %w(MAGTEK IDTECH),
-        :Shipping_Carrier => %w(ups fedex dhl usps UPS Fedex DHL USPS),
+          :TransactionType => %w(sale auth safe\ only capture void refund update adjustment),
+          :SAFE_Action => %w(add_safe update_safe delete_safe),
+          :PaymentType => %w(creditcard check),
+          :SecCode => %w(PPD WEB TEL CCD),
+          :AccountHolderType => %w(business personal),
+          :AccountType => %w(checking savings),
+          :MagHardware => %w(MAGTEK IDTECH),
+          :Shipping_Carrier => %w(ups fedex dhl usps UPS Fedex DHL USPS),
       }
 
       @digit_2 = %w(State ShippingState)
@@ -97,74 +97,74 @@ module Agms
       @mapping[:shipping_tracking_number] = :Tracking_Number
       @mapping[:shipping_carrier] = :Shipping_Carrier
 
-		end
+    end
 
-		def validate
-			@required = Array.new
+    def validate
+      @required = Array.new
 
       # Unless this is a safe action only request, require a transaction type
       if @fields[:SAFE_Action][:value] == ''
-          @required.push(:TransactionType)
+        @required.push(:TransactionType)
       end
 
       # If no transaction type, require a Safe Action
       if @fields[:TransactionType][:value] == ''
-          @required.push(:SAFE_Action)
+        @required.push(:SAFE_Action)
       end
 
       # All sales and auths require an amount
-      if (   @fields[:TransactionType][:value] == 'sale'  or
-          @fields[:TransactionType][:value] == 'auth'    )
-          @required.push(:Amount)
+      if (@fields[:TransactionType][:value] == 'sale' or
+          @fields[:TransactionType][:value] == 'auth')
+        @required.push(:Amount)
       end
 
       # Captures, refunds, voids, updates, adjustments need a Transaction ID
-      if (   @fields[:TransactionType][:value] == 'capture' or
+      if (@fields[:TransactionType][:value] == 'capture' or
           @fields[:TransactionType][:value] == 'refund' or
           @fields[:TransactionType][:value] == 'void' or
-          @fields[:TransactionType][:value] == 'adjustment'  )
-          @required.push(:TransactionID)
+          @fields[:TransactionType][:value] == 'adjustment')
+        @required.push(:TransactionID)
       end
 
       # Require TipAmount for Tip Adjustment transactions
       if @fields[:TransactionType][:value] == 'adjustment'
-          @required.push(:TipAmount)
+        @required.push(:TipAmount)
       end
 
       # All safe updates and deletes require a safe id
-      if (   @fields[:SAFE_Action][:value] == 'update' or
-          @fields[:SAFE_Action][:value] == 'delete'  )
-          @required.push(:SAFE_ID)
+      if (@fields[:SAFE_Action][:value] == 'update' or
+          @fields[:SAFE_Action][:value] == 'delete')
+        @required.push(:SAFE_ID)
       end
 
 
       if @fields[:PaymentType][:value] == 'check'
-          # Cheque transaction
-          if @fields[:SAFE_ID][:value] == ''
-              # If no Safe ID we need all the check info
-              @required.push(:CheckName)
-              @required.push(:CheckABA)
-              @required.push(:CheckAccount)
-              if (   @fields[:TransactionType][:value] == 'sale' or
-                 @fields[:TransactionType][:value] == 'auth'    )
-                  @required.push(:SecCode)
-              end
+        # Cheque transaction
+        if @fields[:SAFE_ID][:value] == ''
+          # If no Safe ID we need all the check info
+          @required.push(:CheckName)
+          @required.push(:CheckABA)
+          @required.push(:CheckAccount)
+          if (@fields[:TransactionType][:value] == 'sale' or
+              @fields[:TransactionType][:value] == 'auth')
+            @required.push(:SecCode)
           end
+        end
       else
-          # Credit card transaction
-          # If no SAFE ID and its a sale or auth
-          if (  @fields[:SAFE_ID][:value] == '' and
-              ( @fields[:TransactionType][:value] == 'sale' or
-              @fields[:TransactionType][:value] == 'auth' )  )
-              # If no Safe ID we need the card info
-              # If no MagData then we need keyed info
-              if @fields[:MagData][:value] == ''
-                  @required.push(:CCNumber)
-                  @required.push(:CCExpDate)
-              else
-                  @required.push(:MagHardware)
-              end
+        # Credit card transaction
+        # If no SAFE ID and its a sale or auth
+        if (@fields[:SAFE_ID][:value] == '' and
+            (@fields[:TransactionType][:value] == 'sale' or
+                @fields[:TransactionType][:value] == 'auth'))
+          # If no Safe ID we need the card info
+          # If no MagData then we need keyed info
+          if @fields[:MagData][:value] == ''
+            @required.push(:CCNumber)
+            @required.push(:CCExpDate)
+          else
+            @required.push(:MagHardware)
           end
+        end
       end
 
       error_array = AgmsAutoValidate();
@@ -172,23 +172,23 @@ module Agms
       messages = error_array['messages'];
 
       # ExpDate MMYY
-      if (    @fields[:CCExpDate][:value] != '' and
-          ( @fields[:CCExpDate][:value].length != 4 or
-          not /(0[1-9]|1[0-2])([0-9][0-9])/.match(@fields[:CCExpDate][:value]) )  )
-          errors += 1
-          messages.push('CCExpDate (credit card expiration date) must be MMYY.')
+      if (@fields[:CCExpDate][:value] != '' and
+          (@fields[:CCExpDate][:value].length != 4 or
+              not /(0[1-9]|1[0-2])([0-9][0-9])/.match(@fields[:CCExpDate][:value])))
+        errors += 1
+        messages.push('CCExpDate (credit card expiration date) must be MMYY.')
       end
 
       # CCNumber length
-      if ( @fields[:CCNumber][:value] != ''  and
+      if (@fields[:CCNumber][:value] != '' and
           @fields[:CCNumber][:value].length != 16 and
-          @fields[:CCNumber][:value].length != 15 )
-          errors += 1
-          messages.push('CCNumber (credit card number) must be 15-16 digits long.')
+          @fields[:CCNumber][:value].length != 15)
+        errors += 1
+        messages.push('CCNumber (credit card number) must be 15-16 digits long.')
       end
 
       # ABA length
-      if  ( @fields[:CheckABA][:value] != '' and
+      if (@fields[:CheckABA][:value] != '' and
           @fields[:CheckABA][:value].length != 9)
         errors += 1
         messages.push('CheckABA (routing number) must be 9 digits long.')
@@ -203,15 +203,15 @@ module Agms
         print "Request validation failed with #{messages.join(' ')}"
         raise RequestValidationError, "Request validation failed with #{messages.join(' ')}."
       end
-        
-		end
 
-		def getFields
-        	return getFieldArray
-        end
+    end
 
-    	def getParams(request)
-        	return {:objparameters => request}
-        end
-	end
+    def getFields
+      return getFieldArray
+    end
+
+    def getParams(request)
+      return {:objparameters => request}
+    end
+  end
 end

@@ -41,6 +41,9 @@ Examples can be found as part of this package in example /hpp.rb, example/invoic
 
 See the LICENSE file.
 
+## Development
+
+Test cases can be run with: `bundle exec rake test`
 
 ## Contributing
 

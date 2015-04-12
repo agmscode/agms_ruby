@@ -127,8 +127,7 @@ class TransactionTest < Test::Unit::TestCase
         :cc_exp_date => { :value => '0520'},
         :cc_cvv => { :value => '123'}
     }
-    response = @trans.process(params)
-    transaction_id = response['transaction_id']
+    @trans.process(params)
     Agms::Connect.any_instance.stubs(:post).returns(failed_capture_response)
     params = {
         :transaction_type => { :value => 'capture'},
@@ -136,7 +135,7 @@ class TransactionTest < Test::Unit::TestCase
         :transaction_id => { :value => '123456'}
     }
     begin
-      response = @trans.process(params)
+      @trans.process(params)
     rescue => err
       assert_equal '10', err.object['response_code'], 'Capture Transaction Failed'
       assert_equal 'Transaction ID is not valid. Please double check your Transaction ID', err.object['response_message'], err.object['response_message']
@@ -199,8 +198,7 @@ class TransactionTest < Test::Unit::TestCase
         :cc_exp_date => { :value => '0520'},
         :cc_cvv => { :value => '123'}
     }
-    response = @trans.process(params)
-    transaction_id = response['transaction_id']
+    @trans.process(params)
     Agms::Connect.any_instance.stubs(:post).returns(failed_refund_response)
     params = {
         :transaction_type => { :value => 'refund'},
@@ -208,7 +206,7 @@ class TransactionTest < Test::Unit::TestCase
         :transaction_id => { :value => '123456'}
     }
     begin
-      response = @trans.process(params)
+      @trans.process(params)
     rescue => err
       assert_equal '10', err.object['response_code'], 'Capture Transaction Failed'
       assert_equal 'Transaction ID is not valid. Please double check your Transaction ID', err.object['response_message'], err.object['response_message']
@@ -248,15 +246,14 @@ class TransactionTest < Test::Unit::TestCase
         :cc_exp_date => { :value => '0520'},
         :cc_cvv => { :value => '123'}
     }
-    response = @trans.process(params)
-    transaction_id = response['transaction_id']
+    @trans.process(params)
     Agms::Connect.any_instance.stubs(:post).returns(failed_void_response)
     params = {
         :transaction_type => { :value => 'void'},
         :transaction_id => { :value => '123456'}
     }
     begin
-      response = @trans.process(params)
+      @trans.process(params)
     rescue => err
       assert_equal '10', err.object['response_code'], 'Void Transaction Failed'
       assert_equal 'Transaction ID is not valid. Please double check your Transaction ID', err.object['response_message'], err.object['response_message']
@@ -296,15 +293,14 @@ class TransactionTest < Test::Unit::TestCase
         :cc_exp_date => { :value => '0520'},
         :cc_cvv => { :value => '123'}
     }
-    response = @trans.process(params)
-    transaction_id = response['transaction_id']
+    @trans.process(params)
     Agms::Connect.any_instance.stubs(:post).returns(failed_void_response)
     params = {
         :transaction_type => { :value => 'void'},
         :transaction_id => { :value => '123456'}
     }
     begin
-      response = @trans.process(params)
+      @trans.process(params)
     rescue => err
       assert_equal '10', err.object['response_code'], 'Verify Transaction Failed'
       assert_equal 'Transaction ID is not valid. Please double check your Transaction ID', err.object['response_message'], err.object['response_message']

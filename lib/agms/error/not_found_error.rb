@@ -1,5 +1,5 @@
 module Agms
-	class NotFoundError < AgmsError
+  class NotFoundError < AgmsError
     def initialize(message, object)
       super(message, object)
     end

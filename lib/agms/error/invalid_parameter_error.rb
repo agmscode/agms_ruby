@@ -1,5 +1,5 @@
 module Agms
-	class InvalidParameterError < AgmsError
+  class InvalidParameterError < AgmsError
     def initialize(message, object)
       super(message, object)
     end

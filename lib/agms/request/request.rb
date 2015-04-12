@@ -1,26 +1,26 @@
 module Agms
-	class Request
-		def initialize(op)
-			@op = op
-			@validateErrors = 0
-			@validateMessages = nil
-			@fields = nil
-			@required = nil
-			@numeric = nil
-			@optionable = nil
-			@enums = nil
-			@date = nil
-			@time = nil
-			@boolean = nil
-			@digit_2 = nil
-			@amount = nil
+  class Request
+    def initialize(op)
+      @op = op
+      @validateErrors = 0
+      @validateMessages = nil
+      @fields = nil
+      @required = nil
+      @numeric = nil
+      @optionable = nil
+      @enums = nil
+      @date = nil
+      @time = nil
+      @boolean = nil
+      @digit_2 = nil
+      @amount = nil
 
-			@needs_account = nil
-			@needs_key = nil
+      @needs_account = nil
+      @needs_key = nil
 
-			@mapping_alias = nil
+      @mapping_alias = nil
 
-			@mapping = {
+      @mapping = {
           :gateway_username => :GatewayUserName,
           :gateway_password => :GatewayPassword,
           :gateway_account => :AccountNumber,
@@ -128,17 +128,17 @@ module Agms
           :start_time => :StartTime,
           :end_time => :EndTime,
           :suppress_safe_option => :SupressAutoSAFE
-			}
+      }
 
-			@states = %w(AL AK AS AZ AR CA CO CT DE DC FM FL GA GU HI ID IL IN IA KS KY LA ME MH MD MA MI MN MS MO MT NE NV NH NJ NM NY NC ND MP OH OK OR PW PA PR RI SC SD TN TX UT VT VI VA WA WV WI WY AE AA AP)
-		end
+      @states = %w(AL AK AS AZ AR CA CO CT DE DC FM FL GA GU HI ID IL IN IA KS KY LA ME MH MD MA MI MN MS MO MT NE NV NH NJ NM NY NC ND MP OH OK OR PW PA PR RI SC SD TN TX UT VT VI VA WA WV WI WY AE AA AP)
+    end
 
-		def get(username, password, account, api_key)
-			request_body = getFields()
-			request_body[:GatewayUserName] = username
-			request_body[:GatewayPassword] = password
+    def get(username, password, account, api_key)
+      request_body = getFields()
+      request_body[:GatewayUserName] = username
+      request_body[:GatewayPassword] = password
 
-			# Adjust for a field name variation in the Reporting API
+      # Adjust for a field name variation in the Reporting API
       if @op == 'TransactionAPI' or @op == 'QuerySAFE'
         request_body.delete(:GatewayUserName)
         request_body[:GatewayUsername] = username
@@ -179,13 +179,13 @@ module Agms
       end
 
       # Check that it is a valid setting
-      if ( parameter == :setting and
+      if (parameter == :setting and
           value != '' and
           value != 'required' and
           value != 'disabled' and
           value != 'visible' and
           value != 'excluded' and
-          value != 'hidden' )
+          value != 'hidden')
         raise InvalidParameterError, "Invalid parameter #{parameter} for #{name}."
       end
 
@@ -220,7 +220,7 @@ module Agms
       messages = Array.new
 
       if @required
-        @required.each do | field_name |
+        @required.each do |field_name|
           if @fields[field_name][:value] == ''
             errors +=1
             messages.push("Missing required field #{field_name}.")
@@ -230,11 +230,11 @@ module Agms
 
       # Validate enumerated types
       if @enums
-        @enums.each do | field_name, valid_values |
+        @enums.each do |field_name, valid_values|
 
           if @fields.has_key?(field_name) and
               @fields[field_name][:value] != '' and
-              not valid_values.include?@fields[field_name][:value]
+              not valid_values.include? @fields[field_name][:value]
             errors += 1
             messages.push("Invalid #{field_name}, value " + @fields[field_name][:value] + ', must be one of ' + valid_values.join(' ') + '.')
           end
@@ -243,7 +243,7 @@ module Agms
 
       # Validate numeric fields
       if @numeric
-        @numeric.each do | field_name |
+        @numeric.each do |field_name|
           if @fields.has_key?(field_name) and
               @fields[field_name][:value] != '' and
               not isNumber(@fields[field_name][:value])
@@ -255,14 +255,14 @@ module Agms
 
       # Validate optionable fields
       if @optionable
-        @optionable.each do | field_name |
-          if ( @fields.has_key?(field_name) and
+        @optionable.each do |field_name|
+          if (@fields.has_key?(field_name) and
               @fields[field_name][:setting] != '' and
               @fields[field_name][:setting] != :required and
               @fields[field_name][:setting] != :disabled and
               @fields[field_name][:setting] != :visible and
               @fields[field_name][:setting] != :excluded and
-              @fields[field_name][:setting] != :hidden )
+              @fields[field_name][:setting] != :hidden)
             errors += 1
             messages.push("Field #{field_name} has setting " + @fields[field_name][:value] + ', must be required, disabled, visible, hidden, or empty.')
           end
@@ -271,7 +271,7 @@ module Agms
 
       # Validate date fields
       if @date
-        @date.each do | field_name |
+        @date.each do |field_name|
 
           if @fields.has_key?(field_name) and
               @fields[field_name][:value] != '' and
@@ -285,7 +285,7 @@ module Agms
 
       # Validate time fields
       if @time
-        @time.each do | field_name |
+        @time.each do |field_name|
           if not @fields[field_name][:value] != '' and
               not /([01][0-9]|2[0-3]):[0-5][0-9](:[0-5][0-9])/.match(@fields[field_name][:value])
             errors += 1
@@ -297,8 +297,8 @@ module Agms
 
       # Validate boolean fields
       if @boolean
-        @boolean.each do | field_name |
-          if ( @fields.has_key?(field_name) and
+        @boolean.each do |field_name|
+          if (@fields.has_key?(field_name) and
               not @fields[field_name][:value] != '' and
               not @fields[field_name][:value] != true and
               @fields[field_name][:value] != false and
@@ -313,10 +313,10 @@ module Agms
 
       # Validate state code fields
       if @digit_2
-        @digit_2.each do | field_name |
+        @digit_2.each do |field_name|
           if @fields.has_key?(field_name) and
               @fields[field_name][:value] != '' and
-              not @digit_2.has_key?@fields[field_name][:value]
+              not @digit_2.has_key? @fields[field_name][:value]
             errors += 1
             messages.push("Field #{field_name} has setting " + @fields[field_name][:value] + ', must be valid 2 digit US State code.')
           end
@@ -325,7 +325,7 @@ module Agms
 
       # Validate amount fields
       if @amount
-        @amount.each do | field_name |
+        @amount.each do |field_name|
           if @fields.key?(field_name) and
               @fields[field_name][:value] != '' and
               @fields[field_name][:value] > Configuration.max_amount
@@ -352,10 +352,10 @@ module Agms
       validate()
 
       if @validateErrors > 0
-        raise RequestValidationError , 'Request validation failed with ' + '  '.join(@validateMessages) + '.'
+        raise RequestValidationError, 'Request validation failed with ' + '  '.join(@validateMessages) + '.'
       end
 
-      @fields.each do | field_name, settings |
+      @fields.each do |field_name, settings|
         if settings[:setting] == :required
           request[field_name] = ''
           request[field_name + '_Visible'] = true

@@ -1,5 +1,5 @@
 module Agms
-	class RequestValidationError < AgmsError
+  class RequestValidationError < AgmsError
     def initialize(message, object)
       super(message, object)
     end

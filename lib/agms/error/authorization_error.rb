@@ -1,5 +1,5 @@
 module Agms
-	class AuthorizationError < AgmsError
+  class AuthorizationError < AgmsError
     def initialize(message, object)
       super(message, object)
     end
