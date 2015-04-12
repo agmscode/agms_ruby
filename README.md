@@ -1,7 +1,7 @@
 # AgmsRuby Library
 
 The AGMS Ruby library provides integration to the Avant-Garde Gateway.
-
+[![Build Status](https://travis-ci.org/agmscode/agms_ruby.png?branch=master)](https://travis-ci.org/agmscode/agms_ruby)
 
 ## Installation
 
