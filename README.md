@@ -1,6 +1,6 @@
 # AgmsRuby Library
 
-The AGMS Ruby library provides integration access to the Avant-Garde Gateway.
+The AGMS Ruby library provides integration to the Avant-Garde Gateway.
 
 
 ## Installation
@@ -21,7 +21,7 @@ Or install it yourself as:
 
 ## Usage
 
-Take a look at example code
+Take a look at example code in the example folder
 
 
 ## Release Notes
@@ -34,7 +34,7 @@ Support for Invoicing and Recurring are not yet completed.
 * [Official documentation](https://www.onlinepaymentprocessing.com/docs/ruby)
 * [Bug Tracker](http://github.com/agms/agms_ruby/issues)
 
-Examples can be found as part of this package in example_hpp.py, example_invoicing.py, example_recurring.py, example_report.py, example_safe.py, example_transaction.py.
+Examples can be found as part of this package in example /hpp.rb, example/invoicing.rb, example/recurring.rb, example_report.py, example/safe.rb, example/transaction.rb.
 
 
 ## License
