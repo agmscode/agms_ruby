@@ -1,4 +1,4 @@
-require './lib/agms'
+require 'agms'
 
 Agms::Configuration.init('init.yml')
 
