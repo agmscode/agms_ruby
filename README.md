@@ -1,6 +1,6 @@
 # AgmsRuby Library [![Build Status](https://travis-ci.org/agmscode/agms_ruby.png?branch=master)](https://travis-ci.org/agmscode/agms_ruby)
 
-The AGMS Ruby library provides integration to the AGMS Gateway.
+The AgmsRuby library provides integration to the AGMS Gateway.
 
 ---
 
@@ -22,7 +22,7 @@ Or install it yourself as:
 
 ## Documentation and Usage
 
-Full documenation for the AGMS Ruby library can be found at [Online Payment Processing](http://onlinepaymentprocessing.com/docs/ruby).
+Full documenation for the AgmsRuby library can be found at [Online Payment Processing](http://onlinepaymentprocessing.com/docs/ruby).
 
 Examples on how the AGMS Ruby library can be used are found as part of this package in:
 
