@@ -1,6 +1,9 @@
 #!/usr/bin/env ruby
 $:.unshift File.expand_path('../../lib', __FILE__)
 
+require "codeclimate-test-reporter"
+CodeClimate::TestReporter.start
+
 require 'bundler/setup'
 require 'yaml'
 

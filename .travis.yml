@@ -9,3 +9,8 @@ rvm:
   - 2.2
 
 sudo: false
+
+addons:
+  code_climate:
+    repo_token: 50a06f9a
+
