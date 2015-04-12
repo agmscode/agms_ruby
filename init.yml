@@ -1,0 +1,9 @@
+username : agmsdevdemo
+password : nX1m*xa9Id
+account : 1001789
+api_key : b00f57326f8cf34bbb705a74b5fcbaa2b2f3e58076dc81f
+http_client : requests
+max_amount : 10000
+min_amount : 0.00
+verbose : false
+hpp_template : template1
