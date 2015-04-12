@@ -51,12 +51,8 @@ module Agms
     end
 
     def self.instantiate()
-      return Configuration.new(
-        Configuration.gateway_username,
-        Configuration.gateway_password,
-        Configuration.gateway_account,
-        Configuration.gateway_api_key,
-      )
+      return Configuration.new(Configuration.gateway_username, Configuration.gateway_password,
+        Configuration.gateway_account, Configuration.gateway_api_key)
     end
 
     def initialize(gateway_username, gateway_password, gateway_account=nil, gateway_api_key=nil)
