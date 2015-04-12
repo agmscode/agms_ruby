@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Maanas Royy"]
   spec.email         = ["maanas@agms.com"]
 
-  spec.summary       = %q{AGMS Gateway Ruby Client Library}
+  spec.summary       = %q{AGMS Ruby Client Library}
   spec.description   = %q{Ruby Library for integrating AGMS Gateway}
   spec.homepage      = "http://www.onlinepaymentprocessing.com"
 
@@ -19,11 +19,11 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   if spec.respond_to?(:metadata)
-    spec.metadata['allowed_push_host'] = "TODO: Set to 'http://mygemserver.com' to prevent pushes to rubygems.org, or delete to allow pushes to any server."
+    spec.metadata['allowed_push_host'] = "https://rubygems.org"
   end
 
-  spec.add_development_dependency 'nokogiri'
-  spec.add_development_dependency 'bundler', '~> 1.8'
+  spec.add_development_dependency 'nokogiri', '~> 0'
+  spec.add_development_dependency 'bundler', '~> 1.7'
   spec.add_development_dependency 'rake', '~> 10.0'
-  spec.add_development_dependency 'mocha'
+  spec.add_development_dependency 'mocha', '~> 0'
 end
