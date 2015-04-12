@@ -22,8 +22,8 @@ Gem::Specification.new do |spec|
     spec.metadata['allowed_push_host'] = "https://rubygems.org"
   end
 
-  spec.add_development_dependency 'nokogiri', '~> 0'
+  spec.add_development_dependency 'nokogiri'
   spec.add_development_dependency 'bundler', '~> 1.7'
   spec.add_development_dependency 'rake', '~> 10.0'
-  spec.add_development_dependency 'mocha', '~> 0'
+  spec.add_development_dependency 'mocha'
 end
