@@ -5,8 +5,8 @@ module Agms
 
         # Version data
         MAJOR = 0
-        MINOR = 2
-        TINY = 1
+        MINOR = 1
+        TINY = 3
 
         API = 3
 

@@ -5,7 +5,7 @@ class AgmsTest < Test::Unit::TestCase
   end
 
   def test_library_version
-    assert_equal '0.2.1', Agms::Agms.getLibraryVersion, 'Agms Library Version Successful'
+    assert_equal '0.1.3', Agms::Agms.getLibraryVersion, 'Agms Library Version Successful'
   end
 
   def test_api_version
