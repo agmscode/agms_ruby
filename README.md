@@ -22,7 +22,7 @@ Or install it yourself as:
 
 ## Documentation and Usage
 
-Full documenation for the AGMS Ruby library can be found at [OnlinePaymentProcessing.com/docs/ruby](http://onlinepaymentprocessing.com/docs/ruby).
+Full documenation for the AGMS Ruby library can be found at [Online Payment Processing](http://onlinepaymentprocessing.com/docs/ruby).
 
 Examples on how the AGMS Ruby library can be used are found as part of this package in:
 
