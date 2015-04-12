@@ -51,7 +51,7 @@ Test cases can be run with: `bundle exec rake test`
 4. Push to your feature branch (`git push origin my-new-feature`)
 5. [Create Pull Request](https://github.com/jasonniebauer/agms_ruby/pulls)
 
-[Find a Bug](http://github.com/agmscode/agms_ruby/issues)?
+[Report a Bug](http://github.com/agmscode/agms_ruby/issues)
 
 ## License
 
