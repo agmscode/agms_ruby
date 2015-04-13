@@ -20,12 +20,19 @@ Or install it yourself as:
 
 ## Usage
 
-Take a look at example code in the example folder
+Examples on how the AGMS Ruby library can be used are found as part of this package in:
+examples/
+ -- hpp.rb
+ -- invoicing.rb
+ -- recurring.rb
+ -- report.py
+ -- safe.rb
+ -- transaction.rb.
 
 
 ## Release Notes
 
-Support for Invoicing and Recurring are not yet completed.
+Support for Invoicing and Recurring are not yet completed and are still under development.
 
 
 ## Documentation
@@ -33,7 +40,7 @@ Support for Invoicing and Recurring are not yet completed.
 * [Official documentation](https://www.onlinepaymentprocessing.com/docs/ruby)
 * [Bug Tracker](http://github.com/agmscode/agms_ruby/issues)
 
-Examples can be found as part of this package in example /hpp.rb, example/invoicing.rb, example/recurring.rb, example_report.py, example/safe.rb, example/transaction.rb.
+
 
 
 ## License
