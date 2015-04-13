@@ -22,12 +22,12 @@ Or install it yourself as:
 
 Examples on how the AGMS Ruby library can be used are found as part of this package in:
 examples/
- -- hpp.rb
- -- invoicing.rb
- -- recurring.rb
- -- report.py
- -- safe.rb
- -- transaction.rb.
+* hpp.rb
+* invoicing.rb
+* recurring.rb
+* report.py
+* safe.rb
+* transaction.rb.
 
 
 ## Release Notes
