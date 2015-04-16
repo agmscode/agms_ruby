@@ -25,9 +25,9 @@ examples/
 * hpp.rb
 * invoicing.rb
 * recurring.rb
-* report.rb
+* report.py
 * safe.rb
-* transaction.rb
+* transaction.rb.
 
 
 ## Release Notes
@@ -37,7 +37,7 @@ Support for Invoicing and Recurring are not yet completed and are still under de
 
 ## Documentation
 
-* [Official documentation](http://onlinepaymentprocessing.com/docs/)
+* [Official documentation](https://www.onlinepaymentprocessing.com/docs/ruby)
 * [Bug Tracker](http://github.com/agmscode/agms_ruby/issues)
 
 
