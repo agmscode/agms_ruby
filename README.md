@@ -37,7 +37,7 @@ Support for Invoicing and Recurring are not yet completed and are still under de
 
 ## Documentation
 
-* [Official documentation](https://www.onlinepaymentprocessing.com/docs/ruby)
+* [Official documentation](http://onlinepaymentprocessing.com/docs/)
 * [Bug Tracker](http://github.com/agmscode/agms_ruby/issues)
 
 
