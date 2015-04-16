@@ -25,9 +25,9 @@ examples/
 * hpp.rb
 * invoicing.rb
 * recurring.rb
-* report.py
+* report.rb
 * safe.rb
-* transaction.rb.
+* transaction.rb
 
 
 ## Release Notes

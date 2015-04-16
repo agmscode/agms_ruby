@@ -322,7 +322,8 @@ class TransactionTest < Test::Unit::TestCase
 
   def successful_authorize_response
     %(
-<?xml version=\"1.0\" encoding=\"utf-8\"?><soap:Envelope xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"><soap:Body><ProcessTransactionResponse xmlns=\"https://gateway.agms.com/roxapi/\"><ProcessTransactionResult><STATUS_CODE>1</STATUS_CODE><STATUS_MSG>Approved</STATUS_MSG><TRANS_ID>550945</TRANS_ID><AUTH_CODE>9999</AUTH_CODE><AVS_CODE /><AVS_MSG /><CVV2_CODE /><CVV2_MSG /><ORDERID /><SAFE_ID /><FULLRESPONSE /><POSTSTRING /><BALANCE /><GIFTRESPONSE /><MERCHANT_ID>652</MERCHANT_ID><CUSTOMER_MESSAGE /><RRN /></ProcessTransactionResult></ProcessTransactionResponse></soap:Body></soap:Envelope>     )
+<?xml version=\"1.0\" encoding=\"utf-8\"?><soap:Envelope xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"><soap:Body><ProcessTransactionResponse xmlns=\"https://gateway.agms.com/roxapi/\"><ProcessTransactionResult><STATUS_CODE>1</STATUS_CODE><STATUS_MSG>Approved</STATUS_MSG><TRANS_ID>550945</TRANS_ID><AUTH_CODE>9999</AUTH_CODE><AVS_CODE /><AVS_MSG /><CVV2_CODE /><CVV2_MSG /><ORDERID /><SAFE_ID /><FULLRESPONSE /><POSTSTRING /><BALANCE /><GIFTRESPONSE /><MERCHANT_ID>652</MERCHANT_ID><CUSTOMER_MESSAGE /><RRN /></ProcessTransactionResult></ProcessTransactionResponse></soap:Body></soap:Envelope>
+    )
   end
 
   def failed_authorize_response
