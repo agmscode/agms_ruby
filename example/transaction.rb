@@ -90,30 +90,3 @@ params = {
 
 result = trans.process(params)
 print result
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
