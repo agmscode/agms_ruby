@@ -1,4 +1,4 @@
-require '../lib/agms.rb'
+require 'agms'
 
 # Initialize the library configuration
 # with the Gateway Credentials
