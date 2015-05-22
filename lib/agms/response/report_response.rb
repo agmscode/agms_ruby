@@ -90,7 +90,9 @@ module Agms
             :moddate => 'date_last_modified',
             :createuser => 'created_by',
             :moduser => 'modified_by',
-            :useragent => 'user_agent'
+            :useragent => 'user_agent',
+            :cardpresent => 'card_present',
+            :cardtype => 'card_type'
         }
         if arr
           @response = arr
