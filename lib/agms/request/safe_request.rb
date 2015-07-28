@@ -10,7 +10,6 @@ module Agms
           :TransactionType => {:setting => '', :value => ''},
           :PaymentType => {:setting => '', :value => 'creditcard'},
           :Amount => {:setting => '', :value => ''}, # Required for sale or auth
-          :TipAmount => {:setting => '', :value => ''}, # Required for Adjustment
           :Tax => {:setting => '', :value => ''},
           :Shipping => {:setting => '', :value => ''},
           :OrderDescription => {:setting => '', :value => ''},
@@ -69,8 +68,15 @@ module Agms
           :SAFE_Action => {:setting => '', :value => ''},
           :SAFE_ID => {:setting => '', :value => ''},
           :ReceiptType => {:setting => '', :value => ''},
+          :CCNumber2 => {:setting => '', :value => ''},
+          :Clerk_ID => {:setting => '', :value => ''},
+          :Billing_Code => {:setting => '', :value => ''},
+          :InvoiceID => {:setting => '', :value => ''},
+          :BatchID => {:setting => '', :value => ''},
           :MagData => {:setting => '', :value => ''},
           :MagHardware => {:setting => '', :value => ''},
+          :TipAmount => {:setting => '', :value => ''}, # Required for Adjustment
+          
       }
 
       @numeric = %w(Amount Tax Shipping ProcessorID TransactionID CheckABA CheckAccount CCNumber CCExpDate)
@@ -88,9 +94,9 @@ module Agms
 
       @date = %w(StartDate EndDate)
 
-      @digit_2 = %w(State ShippingState)
+      @state = %w(State ShippingState)
 
-      @amount = %w(Amount TipAmount Tax Shipping)
+      @amount = %w(Amount Tax Shipping TipAmount)
 
       # Override mapping with api-specific field maps
       @mapping[:shipping_tracking_number] = :Tracking_Number
@@ -204,8 +210,5 @@ module Agms
       return getFieldArray
     end
 
-    def getParams(request)
-      return {:vParameter => request}
-    end
   end
 end

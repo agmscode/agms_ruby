@@ -70,16 +70,6 @@ module Agms
             :customfield8 => 'custom_field_8',
             :customfield9 => 'custom_field_9',
             :customfield10 => 'custom_field_10',
-            :customfield11 => 'custom_field_11',
-            :customfield12 => 'custom_field_12',
-            :customfield13 => 'custom_field_13',
-            :customfield14 => 'custom_field_14',
-            :customfield15 => 'custom_field_15',
-            :customfield16 => 'custom_field_16',
-            :customfield17 => 'custom_field_17',
-            :customfield18 => 'custom_field_18',
-            :customfield19 => 'custom_field_19',
-            :customfield20 => 'custom_field_20',
             :receipttype => 'receipt_type',
             :responsestatuscode => 'response_code',
             :responsestatusmsg => 'response_message',
@@ -90,16 +80,78 @@ module Agms
             :moddate => 'date_last_modified',
             :createuser => 'created_by',
             :moduser => 'modified_by',
-            :useragent => 'user_agent'
+            :useragent => 'user_agent',
+            :cardpresent => 'card_present',
+            :cardtype => 'card_type'
         }
+
         if arr
-          @response = arr
+          @response = arr[0]
         else
           @response = Array.new
         end
       elsif @op == 'QuerySAFE'
+        @mapping = {
+            :ID => 'safe_id',
+            :MerchantID => 'merchant_id',
+            :CustomerID => 'customer_id',
+            :Type => 'type',
+            :CCNumber => 'cc_number',
+            :CCExpDate => 'cc_exp_date',
+            :CheckName => 'ach_name',
+            :CheckABA => 'ach_routing_number',
+            :CheckAccount => 'ach_account_number',
+            :AccountHolderType => 'ach_business_or_personal',
+            :AccountType => 'ach_checking_or_savings',
+            :FirstName => 'first_name',
+            :LastName => 'last_name',
+            :Company => 'company_name',
+            :Address1 => 'address',
+            :Address2 => 'address_2',
+            :City => 'city',
+            :State => 'state',
+            :Zip => 'zip',
+            :Country => 'country',
+            :Phone => 'phone',
+            :Fax => 'fax',
+            :Email => 'email',
+            :Website => 'website',
+            :ShippingFirstName => 'shipping_first_name',
+            :ShippingLastName => 'shipping_last_name',
+            :ShippingCompany => 'shipping_company_name',
+            :ShippingAddress1 => 'shipping_address',
+            :ShippingAddress2 => 'shipping_address_2',
+            :ShippingCity => 'shipping_city',
+            :ShippingState => 'shipping_state',
+            :ShippingZip => 'shipping_zip',
+            :ShippingCountry => 'shipping_country',
+            :ShippingEmail => 'shipping_email',
+            :ShippingPhone => 'shipping_phone',
+            :ShippingFax => 'shipping_fax',
+            :Shipping => 'shipping_amount',
+            :OrderID => 'order_id',
+            :Tax => 'tax',
+            :PONumber => 'po_number',
+            :CustomField1 => 'custom_field_1',
+            :CustomField2 => 'custom_field_2',
+            :CustomField3 => 'custom_field_3',
+            :CustomField4 => 'custom_field_4',
+            :CustomField5 => 'custom_field_5',
+            :CustomField6 => 'custom_field_6',
+            :CustomField7 => 'custom_field_7',
+            :CustomField8 => 'custom_field_8',
+            :CustomField9 => 'custom_field_9',
+            :CustomField10 => 'custom_field_10',
+            :Active => 'active',
+            :CreateDate => 'date_created',
+            :ModDate => 'date_last_modified',
+            :CreateUser => 'created_by',
+            :ModUser => 'modified_by',
+            :UserAgent => 'user_agent',
+            :Internal => 'internal'
+        }
         if arr
-          @response = arr
+          @response = arr[0]
         else
           @response = Array.new
         end

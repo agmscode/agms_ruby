@@ -1,6 +1,11 @@
 module Agms
   class HPP < Agms
-    # A class representing AGMS HPP objects.
+    # API object for the Hosted Payment Page API
+    # Creates HPP Hashes for HPP links
+    # HPP Requires the following fields:
+    #   Transaction Type
+    #   Gateway Username
+    #   Gateway Password
 
     alias AgmsResetParameters resetParameters
     alias AgmsSetParameter setParameter

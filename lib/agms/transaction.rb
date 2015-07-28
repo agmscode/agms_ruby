@@ -1,6 +1,6 @@
 module Agms
   class Transaction < Agms
-    # A class representing AGMS Transaction objects.
+    # API object for the Transaction API
 
     alias AgmsResetParameters resetParameters
     alias AgmsSetParameter setParameter

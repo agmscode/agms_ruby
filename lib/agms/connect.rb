@@ -57,6 +57,26 @@ module Agms
       return _http_do Net::HTTP::Put, url, headers, body
     end
 
+    def _get_parameter_name(request_method)
+      case request_method
+      when 'RecurringAdd'
+      when 'RecurringDelete'
+      when 'RecurringUpdate'
+      when 'RetrieveRecurringID'
+        return 'vRecurringParams'
+      when 'RetrieveRecurringRecords'
+        return 'vRecurringSearchParams'
+      when 'QuerySAFE'
+        return ''
+      when 'AddToSAFE'
+      when 'UpdateSAFE'
+      when 'DeleteFromSAFE'
+        return 'vParameter'
+      else
+        return 'objparameters'
+      end
+    end
+
     def _http_do(http_verb, url, headers = nil, body = nil)
       connection = Net::HTTP.new(Configuration.server, Configuration.port)
       connection.open_timeout = 60

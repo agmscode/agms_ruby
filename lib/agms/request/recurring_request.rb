@@ -9,9 +9,15 @@ module Agms
       @fields1 = {
           :RecurringID => {:setting => '', :value => ''},
           :MerchantID => {:setting => '', :value => ''},
-          :PaymentType => {:setting => '', :value => 'creditcard'},
           :InitialAmount => {:setting => '', :value => ''},
           :RecurringAmount => {:setting => '', :value => ''},
+          :StartDate => {:setting => '', :value => ''},
+          :Frequency => {:setting => '', :value => ''},
+          :Quantity => {:setting => '', :value => ''},
+          :NumberOfOccurrences => {:setting => '', :value => ''},
+          :EndDate => {:setting => '', :value => ''},
+          :NumberOfRetries => {:setting => '', :value => ''},
+          :PaymentType => {:setting => '', :value => 'creditcard'},
           :CCNumber => {:setting => '', :value => ''},
           :CCExpDate => {:setting => '', :value => ''},
           :CVV => {:setting => '', :value => ''},
@@ -43,14 +49,11 @@ module Agms
           :Custom_Field_7 => {:setting => '', :value => ''},
           :Custom_Field_8 => {:setting => '', :value => ''},
           :Custom_Field_9 => {:setting => '', :value => ''},
-          :Custom_Field_10 => {:setting => '', :value => ''},
-          :StartDate => {:setting => '', :value => ''},
-          :Frequency => {:setting => '', :value => ''},
-          :Quantity => {:setting => '', :value => ''},
-          :NumberOfOccurrences => {:setting => '', :value => ''},
-          :EndDate => {:setting => '', :value => ''},
-          :NumberOfRetries => {:setting => '', :value => ''}
+          :Custom_Field_10 => {:setting => '', :value => ''}
+          
       }
+
+      @fields4 = {:MerchantID => {:setting => '', :value => ''}}
 
       @numeric = %w(InitialAmount RecurringAmount Quantity NumberOfOccurrences NumberOfRetries CCNumber CCExpDate CheckABA CheckAccount)
 
@@ -64,12 +67,23 @@ module Agms
 
       @date = %w(StartDate EndDate)
 
-      @digit_2 = %w(State)
+      @state = %w(State)
 
       @amount = %w(Amount TipAmount Tax Shipping)
 
       if @op == 'RecurringAdd'
         @fields = @fields1
+        @required = %w(Frequency NumberOfRetries not\ finished)
+      elsif @op == 'RecurringUpdate'
+        @fields = @fields2
+        @required = %w(Frequency NumberOfRetries)
+      elsif @op == 'RecurringDelete'
+        @fields = @fields3
+        @required = %w(Frequency NumberOfRetries not\ finished)
+      elsif @op == 'RetrieveRecurringID'
+        @fields = @fields4
+        @required = %w(MerchantID)
+        @enums = @numeric = @date = @state = @amount = {}
       else
         raise InvalidRequestError, "Invalid op #{@op} in Request."
       end
@@ -78,15 +92,6 @@ module Agms
 
     def validate
       @required = Array.new
-
-      if @fields[:Frequency][:value] == ''
-        @required.push(:Frequency)
-      end
-
-      # If no transaction type, require a Safe Action
-      if @fields[:NumberOfRetries][:value] == ''
-        @required.push(:NumberOfRetries)
-      end
 
       error_array = AgmsAutoValidate();
 
@@ -108,8 +113,5 @@ module Agms
       return getFieldArray
     end
 
-    def getParams(request)
-      return {:vRecurringParams => request}
-    end
   end
 end

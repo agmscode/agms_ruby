@@ -7,8 +7,6 @@ module Agms
     def initialize(op)
       super(op)
       @trans_fields = {
-          :TransactionType => {:setting => '', :value => ''},
-          :PaymentType => {:setting => '', :value => 'creditcard'},
           :Amount => {:setting => '', :value => ''}, # Required for sale or auth
           :FirstName => {:setting => '', :value => ''},
           :LastName => {:setting => '', :value => ''},
@@ -22,24 +20,24 @@ module Agms
           :Phone => {:setting => '', :value => ''},
           :Fax => {:setting => '', :value => ''},
           :EMail => {:setting => '', :value => ''},
+          :SAFE_ID => {:setting => '', :value => ''},
+          :TransactionType => {:setting => '', :value => ''},
+          :PaymentType => {:setting => '', :value => 'creditcard'},
           :ProcessorID => {:setting => '', :value => ''},
           :TransactionID => {:setting => '', :value => ''},
-          :SAFE_ID => {:setting => '', :value => ''},
-          :StartDate => {:setting => '', :value => ''},
-          :EndDate => {:setting => '', :value => ''},
           :CreditCardLast4 => {:setting => '', :value => ''}
       }
 
       @safe_fields = {
           :Active => {:setting => '', :value => ''},
           :PaymentType => {:setting => '', :value => 'creditcard'},
+          :SafeID => {:setting => '', :value => ''},
+          :StartDate => {:setting => '', :value => ''},
+          :EndDate => {:setting => '', :value => ''},
           :FirstName => {:setting => '', :value => ''},
           :LastName => {:setting => '', :value => ''},
           :Company => {:setting => '', :value => ''},
           :EMail => {:setting => '', :value => ''},
-          :SafeID => {:setting => '', :value => ''},
-          :StartDate => {:setting => '', :value => ''},
-          :EndDate => {:setting => '', :value => ''},
           :Expiring30 => {:setting => '', :value => ''}
       }
 
@@ -47,7 +45,7 @@ module Agms
 
       @date = %w(StartDate EndDate)
 
-      @digit_2 = %w(State)
+      @state = %w(State)
 
       if @op == 'TransactionAPI'
         @fields = @trans_fields
@@ -92,15 +90,5 @@ module Agms
       return getFieldArray
     end
 
-    def getParams(request)
-      if @op == 'TransactionAPI'
-        return {:objparameters => request}
-      elsif @op == 'QuerySAFE'
-        return request
-      else
-        return {:objparameters => request}
-      end
-
-    end
   end
 end

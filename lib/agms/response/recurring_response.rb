@@ -1,12 +1,11 @@
 module Agms
   class RecurringResponse < Response
     # A class representing AGMS Recurring Response objects.
+    # Captures response data from Recurring API request
 
     def initialize(response, op)
-      @response = nil
       @op = op
-
-      response = response['soap:Envelope']['soap:Body'][op + 'Response'][op + 'Result']
+      @response = response['soap:Envelope']['soap:Body'][@op + 'Response'][@op + 'Result']
 
       if @op == 'RecurringAdd' or @op == 'RecurringDelete' or @op == 'RecurringUpdate'
         @mapping = {

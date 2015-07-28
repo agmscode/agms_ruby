@@ -1,0 +1,16 @@
+/.bundle/
+/.yardoc
+/_yardoc/
+/coverage/
+/doc/
+/pkg/
+/spec/reports/
+/tmp/
+bt_rdoc
+rdoc
+*.gem
+tags
+.rvmrc
+Gemfile.lock
+.idea/
+vendor

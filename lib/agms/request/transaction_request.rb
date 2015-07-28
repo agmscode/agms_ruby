@@ -89,7 +89,7 @@ module Agms
           :Shipping_Carrier => %w(ups fedex dhl usps UPS Fedex DHL USPS),
       }
 
-      @digit_2 = %w(State ShippingState)
+      @state = %w(State ShippingState)
 
       @amount = %w(Amount TipAmount Tax Shipping)
 
@@ -210,8 +210,5 @@ module Agms
       return getFieldArray
     end
 
-    def getParams(request)
-      return {:objparameters => request}
-    end
   end
 end

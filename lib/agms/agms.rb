@@ -2,11 +2,12 @@ module Agms
 
     class Agms
         # A class representing base AGMS objects.
+        # Copyright  2014 Avant-Garde Marketing Solutions, Inc.
 
         # Version data
         MAJOR = 0
-        MINOR = 1
-        TINY = 3
+        MINOR = 8
+        TINY = 0
 
         API = 3
 
@@ -16,39 +17,6 @@ module Agms
 
         def self.getAPIVersion()
           return Agms::API.to_s
-        end
-
-        def self.whatCardType(truncated, card_format='name')
-          card_abb = {
-              '3' => 'AX',
-              '4' => 'VX',
-              '5' => 'MC',
-              '6' => 'DS',
-          }
-
-          card_name = {
-              '3' => 'American Express',
-              '4' => 'Visa',
-              '5' => 'Mastercard',
-              '6' => 'Discover',
-          }
-
-          first_digit = truncated[0]
-
-          if card_format == 'abbreviation'
-            begin
-              return card_abb[first_digit]
-            rescue
-              return 'Unknown'
-            end
-          else
-            begin
-              return card_name[first_digit]
-            rescue
-              return 'Unknown'
-            end
-          end
-
         end
 
         def initialize(username=nil, password=nil, account=nil, api_key=nil)
@@ -93,10 +61,13 @@ module Agms
                 opts.each do |param, value|
                   @request.setField(field, param, value)
                 end
-                return true
+            elsif not opts.class == Hash
+                # If provided opts is not an array, assume that its a value param
+                @request.setField(field, param, value)
             else
                 raise InvalidParameterError('Provided options are not in valid array format.')
             end
+            return true
         end
 
         def resetParameters()

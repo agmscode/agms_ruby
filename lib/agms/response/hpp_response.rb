@@ -1,6 +1,7 @@
 module Agms
   class HPPResponse < Response
     # A class representing AGMS HPP Response objects.
+    # Captures response data from HPP request
 
     def initialize(response, op)
       super(response, op)

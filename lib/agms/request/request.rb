@@ -1,10 +1,12 @@
 module Agms
   class Request
     def initialize(op)
-      @op = op
-      @validateErrors = 0
+      @validateErrors = -1
       @validateMessages = nil
+
+      @op = op
       @fields = nil
+
       @required = nil
       @numeric = nil
       @optionable = nil
@@ -12,13 +14,13 @@ module Agms
       @date = nil
       @time = nil
       @boolean = nil
-      @digit_2 = nil
+      @state = nil
       @amount = nil
 
       @needs_account = nil
       @needs_key = nil
 
-      @mapping_alias = nil
+      @mapping_alias = {}
 
       @mapping = {
           :gateway_username => :GatewayUserName,
@@ -101,16 +103,8 @@ module Agms
           :custom_field_8 => :Custom_Field_8,
           :custom_field_9 => :Custom_Field_9,
           :custom_field_10 => :Custom_Field_10,
-          :custom_field_11 => :Custom_Field_11,
-          :custom_field_12 => :Custom_Field_12,
-          :custom_field_13 => :Custom_Field_13,
-          :custom_field_14 => :Custom_Field_14,
-          :custom_field_15 => :Custom_Field_15,
-          :custom_field_16 => :Custom_Field_16,
-          :custom_field_17 => :Custom_Field_17,
-          :custom_field_18 => :Custom_Field_18,
-          :custom_field_19 => :Custom_Field_19,
-          :custom_field_20 => :Custom_Field_20,
+          :start_date => :StartDate,
+          :end_date => :EndDate,
           :expiring_in_30_days => :Expiring30,
           :recurring_id => :RecurringID,
           :merchant_id => :MerchantID,
@@ -123,14 +117,25 @@ module Agms
           :hpp_format => :HPPFormat,
           :cc_last_4 => :CreditCardLast4,
           :transaction_id => :TransactionID,
-          :start_date => :StartDate,
-          :end_date => :EndDate,
           :start_time => :StartTime,
           :end_time => :EndTime,
           :suppress_safe_option => :SupressAutoSAFE
       }
 
       @states = %w(AL AK AS AZ AR CA CO CT DE DC FM FL GA GU HI ID IL IN IA KS KY LA ME MH MD MA MI MN MS MO MT NE NV NH NJ NM NY NC ND MP OH OK OR PW PA PR RI SC SD TN TX UT VT VI VA WA WV WI WY AE AA AP)
+
+      for i in 1..10
+        constant_name = "Custom_Name_#{i}"
+        @mapping_alias[constant_name] = "Custom_Field_#{i}"
+      end
+    end
+
+    def checkForName(name)
+      if @mapping.has_key?(name)
+        return true
+      else
+        return false
+      end
     end
 
     def get(username, password, account, api_key)
@@ -166,6 +171,9 @@ module Agms
       # Fix for odd capitalization of Email
       if field_name == :Email
         field_name = :EMail
+      end
+      if field_name == :ShippingEmail
+        field_name = :ShippingEMail
       end
 
       # Check that field exists
@@ -212,6 +220,14 @@ module Agms
 
     def getValidationMessages
       return @validateMessages
+    end
+
+    def setMappingAlias(name, field)
+      if checkForName(name)
+        @mapping_alias[name] = field
+      else
+        raise ConfigurationError, "Invalid custom field name #{name}, this is a reserved name and cannot be used."
+      end
     end
 
     protected
@@ -312,11 +328,11 @@ module Agms
       end
 
       # Validate state code fields
-      if @digit_2
-        @digit_2.each do |field_name|
+      if @state
+        @state.each do |field_name|
           if @fields.has_key?(field_name) and
               @fields[field_name][:value] != '' and
-              not @digit_2.has_key? @fields[field_name][:value]
+              not @state.has_key? @fields[field_name][:value]
             errors += 1
             messages.push("Field #{field_name} has setting " + @fields[field_name][:value] + ', must be valid 2 digit US State code.')
           end

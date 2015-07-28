@@ -1,6 +1,6 @@
 module Agms
   class Report < Agms
-    # A class representing AGMS Report objects.
+    # API object for the Reporting/Query API
 
     alias AgmsResetParameters resetParameters
     alias AgmsSetParameter setParameter

@@ -1,26 +1,28 @@
 module Agms
   class HPPRequest < Request
-    # A class representing AGMS Transaction Request objects.
+    # Builds all the fields to be used in an HPP generation request
 
     alias AgmsAutoValidate autoValidate
 
     def initialize(op)
       super(op)
       @fields = {
-          :TransactionType => {:setting => '', :value => ''},
+          :HPPFormat => {:setting => '', :value => ''},
           :Amount => {:setting => '', :value => ''},
-          :TipAmount => {:setting => '', :value => ''},
-          :Tax => {:setting => '', :value => ''},
-          :Shipping => {:setting => '', :value => ''},
           :OrderDescription => {:setting => '', :value => ''},
-          :OrderID => {:setting => '', :value => ''},
-          :ClerkID => {:setting => '', :value => ''},
-          :PONumber => {:setting => '', :value => ''},
           :RetURL => {:setting => '', :value => ''},
           :ACHEnabled => {:setting => '', :value => ''},
           :SAFE_ID => {:setting => '', :value => ''},
+          :TransactionType => {:setting => '', :value => ''},
+          :AutoSAFE => {:setting => '', :value => ''},
+          :SuppressAutoSAFE => {:setting => '', :value => ''},
+          :ProcessorID => {:setting => '', :value => ''},
           :Donation => {:setting => '', :value => ''},
           :UsageCount => {:setting => '', :value => ''},
+          :StartDate => {:setting => '', :value => ''},
+          :EndDate => {:setting => '', :value => ''},
+          :StartTime => {:setting => '', :value => ''},
+          :EndTime => {:setting => '', :value => ''},
           :Internal => {:setting => '', :value => ''},
           :FirstName => {:setting => '', :value => ''},
           :LastName => {:setting => '', :value => ''},
@@ -35,6 +37,10 @@ module Agms
           :Fax => {:setting => '', :value => ''},
           :EMail => {:setting => '', :value => ''},
           :Website => {:setting => '', :value => ''},
+          :Tax => {:setting => '', :value => ''},
+          :Shipping => {:setting => '', :value => ''},
+          :OrderID => {:setting => '', :value => ''},
+          :PONumber => {:setting => '', :value => ''},
           :ShippingFirstName => {:setting => '', :value => ''},
           :ShippingLastName => {:setting => '', :value => ''},
           :ShippingCompany => {:setting => '', :value => ''},
@@ -47,11 +53,8 @@ module Agms
           :ShippingEmail => {:setting => '', :value => ''},
           :ShippingPhone => {:setting => '', :value => ''},
           :ShippingFax => {:setting => '', :value => ''},
-          :ProcessorID => {:setting => '', :value => ''},
-          :TransactionID => {:setting => '', :value => ''},
-          :Tracking_Number => {:setting => '', :value => ''},
-          :Shipping_Carrier => {:setting => '', :value => ''},
-          :IPAddress => {:setting => '', :value => ''},
+          :ShippingTrackingNumber => {:setting => '', :value => ''},
+          :ShippingCarrier => {:setting => '', :value => ''},
           :Custom_Field_1 => {:setting => '', :value => ''},
           :Custom_Field_2 => {:setting => '', :value => ''},
           :Custom_Field_3 => {:setting => '', :value => ''},
@@ -61,13 +64,7 @@ module Agms
           :Custom_Field_7 => {:setting => '', :value => ''},
           :Custom_Field_8 => {:setting => '', :value => ''},
           :Custom_Field_9 => {:setting => '', :value => ''},
-          :Custom_Field_10 => {:setting => '', :value => ''},
-          :HPPFormat => {:setting => '', :value => ''},
-          :StartDate => {:setting => '', :value => ''},
-          :EndDate => {:setting => '', :value => ''},
-          :StartTime => {:setting => '', :value => ''},
-          :EndTime => {:setting => '', :value => ''},
-          :SuppressAutoSAFE => {:setting => '', :value => ''}
+          :Custom_Field_10 => {:setting => '', :value => ''}          
       }
 
       @optionable = %w('FirstName', 'LastName', 'Company', 'Address1', 'Address2',
@@ -79,10 +76,10 @@ module Agms
             'Custom_Field_1', 'Custom_Field_2', 'Custom_Field_3', 'Custom_Field_4', 'Custom_Field_5',
             'Custom_Field_6', 'Custom_Field_7', 'Custom_Field_8', 'Custom_Field_9', 'Custom_Field_10')
 
-      @numeric = %w(Amount Tax Shipping ProcessorID TransactionID CheckABA CheckAccount CCNumber CCExpDate)
+      @numeric = %w(Amount Tax Shipping ProcessorID HPPFormat)
 
       @enums = {
-          :TransactionType => %w(sale auth safe\ only capture void refund update adjustment),
+          :TransactionType => %w(sale auth safe\ only),
           :Shipping_Carrier => %w(ups fedex dhl usps UPS Fedex DHL USPS),
           :HPPFormat => %w(1 2)
       }
@@ -90,15 +87,13 @@ module Agms
 
       @date = %w(StartDate EndDate)
 
-      @digit_2 = %w(State ShippingState)
+      @time = %w(StartTime EndTime)
 
-      @amount = %w(Amount TipAmount Tax Shipping)
+      @state = %w(State ShippingState)
+
+      @amount = %w(Amount Shipping)
 
       @required = %w(TransactionType)
-
-      # Override mapping with api-specific field maps
-      @mapping[:shipping_tracking_number] = :Tracking_Number
-      @mapping[:shipping_carrier] = :Shipping_Carrier
 
     end
 
@@ -117,32 +112,6 @@ module Agms
 
       errors = error_array['errors'];
       messages = error_array['messages'];
-
-      # ExpDate MMYY
-      if (@fields.has_key?(:CCExpDate) and
-          @fields[:CCExpDate][:value] != '' and
-          (@fields[:CCExpDate][:value].length != 4 or
-              not /(0[1-9]|1[0-2])([0-9][0-9])/.match(@fields[:CCExpDate][:value])))
-        errors += 1
-        messages.push('CCExpDate (credit card expiration date) must be MMYY.')
-      end
-
-      # CCNumber length
-      if (@fields.has_key?(:CCNumber) and
-          @fields[:CCNumber][:value] != '' and
-          @fields[:CCNumber][:value].length != 16 and
-          @fields[:CCNumber][:value].length != 15)
-        errors += 1
-        messages.push('CCNumber (credit card number) must be 15-16 digits long.')
-      end
-
-      # ABA length
-      if (@fields.has_key?(:CheckABA) and
-          @fields[:CheckABA][:value] != '' and
-          @fields[:CheckABA][:value].length != 9)
-        errors += 1
-        messages.push('CheckABA (routing number) must be 9 digits long.')
-      end
 
       @validate_errors = errors;
       @validate_messages = messages;
@@ -174,8 +143,5 @@ module Agms
       return fields
     end
 
-    def getParams(request)
-      return {:objparameters => request}
-    end
   end
 end

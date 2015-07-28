@@ -1,6 +1,6 @@
 module Agms
   class SAFE < Agms
-    # A class representing AGMS SAFE objects.
+    # API object for the Customer SAFE API
 
     alias AgmsResetParameters resetParameters
     alias AgmsSetParameter setParameter
@@ -8,7 +8,8 @@ module Agms
 
     def initialize
       super()
-      @api_url = 'https://gateway.agms.com/roxapi/AGMS_SAFE_API.asmx'
+      # @api_url = 'https://gateway.agms.com/roxapi/AGMS_SAFE_API.asmx'
+      @api_url = 'https://gateway.agms.com/roxapi/agms.asmx'
       @requestObject = 'SAFERequest'
       @responseObject = 'SAFEResponse'
     end
@@ -52,11 +53,11 @@ module Agms
     protected
     def execute
       if @op == 'AddToSAFE'
-        AgmsDoConnect('AddToSAFE', @responseObject)
+        AgmsDoConnect('ProcessTransaction', @responseObject)
       elsif @op == 'UpdateSAFE'
-          AgmsDoConnect('UpdateSAFE', @responseObject)
+        AgmsDoConnect('ProcessTransaction', @responseObject)
       elsif @op == 'DeleteFromSAFE'
-        AgmsDoConnect('DeleteFromSAFE', @responseObject)
+        AgmsDoConnect('ProcessTransaction', @responseObject)
       else
         raise InvalidRequestError, "Invalid request to Transaction API #{@op}"
       end

@@ -1,6 +1,6 @@
 module Agms
   class Recurring < Agms
-    # A class representing AGMS Recurring objects.
+    # API object for the Recurring API
 
     alias AgmsResetParameters resetParameters
     alias AgmsSetParameter setParameter
