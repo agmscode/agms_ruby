@@ -36,6 +36,10 @@ module Agms
 
     def connect(url, request, request_method, response_object)
       headers = _buildHeaders(request_method)
+      parameter = _get_parameter_name(request_method)
+      if parameter.length > 0
+        request = {parameter => request}
+      end
       request_body = _buildRequest(request, request_method)
       response_body = post(url, headers, request_body)
       return _parseResponse(response_body, request_method)
@@ -59,21 +63,21 @@ module Agms
 
     def _get_parameter_name(request_method)
       case request_method
-      when 'RecurringAdd'
-      when 'RecurringDelete'
-      when 'RecurringUpdate'
-      when 'RetrieveRecurringID'
-        return 'vRecurringParams'
-      when 'RetrieveRecurringRecords'
-        return 'vRecurringSearchParams'
-      when 'QuerySAFE'
-        return ''
-      when 'AddToSAFE'
-      when 'UpdateSAFE'
-      when 'DeleteFromSAFE'
-        return 'vParameter'
-      else
-        return 'objparameters'
+        when 'RecurringAdd'
+        when 'RecurringDelete'
+        when 'RecurringUpdate'
+        when 'RetrieveRecurringID'
+          return 'vRecurringParams'
+        when 'RetrieveRecurringRecords'
+          return 'vRecurringSearchParams'
+        when 'QuerySAFE'
+          return ''
+        when 'AddToSAFE'
+        when 'UpdateSAFE'
+        when 'DeleteFromSAFE'
+          return 'vParameter'
+        else
+          return 'objparameters'
       end
     end
 

@@ -45,7 +45,6 @@ module Agms
             else
                 connect = Connect.new(Configuration.instantiate())
                 request_body = @request.get(@username, @password, @account, @api_key)
-                request_body = @request.getParams(request_body)
                 response = connect.connect(@api_url, request_body, request_method, response_object)
                 responseClass = Object.const_get('Agms').const_get(@responseObject)
                 @response = responseClass.new(response, @op)
